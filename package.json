@@ -21,14 +21,12 @@
   },
   "homepage": "https://github.com/andreymaznyak/typestack-keycloak/issues#README",
   "devDependencies": {
-    "@types/node": "^4.0.35",
+    "@types/node": "^9.3.0",
     "cpx": "^1.5.0",
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "get-keycloak-public-key-with-agent": "^1.0.4",
-    "jsonwebtoken": "^8.1.0",
-    "routing-controllers": "^0.7.6",
-    "typedi": "^0.6.0"
+    "get-keycloak-public-key-with-agent": "1.0.5",
+    "jsonwebtoken": "^8.1.0"
   }
 }

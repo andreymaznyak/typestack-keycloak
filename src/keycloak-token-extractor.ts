@@ -20,7 +20,7 @@ export interface ExtractorOptions {
  * Class for decode and verify keycloak jwt tokens
  * class have keycloak certs instanse
  */
-export class KeycloakTokenExtractor {
+export class KeycloakTokenExtractor implements TokenExtractor {
   private keyCloakCertsInstance: any;
   constructor(options: ExtractorOptions) {
     this.setKeycloakCets(options.keycloakCetsOptions);
@@ -46,7 +46,7 @@ export class KeycloakTokenExtractor {
     const decodedToken = jwt.decode(token, { complete: true });
     if (decodedToken) {
       // decode the token without verification to have the kid value
-      return await this.verifyKeycloakToken(decodedToken.header.kid, token);
+      return await this.verifyToken(token, decodedToken.header.kid);
     } else {
       throw new Error(`failed to decode token: ${token}`);
     }
@@ -56,7 +56,7 @@ export class KeycloakTokenExtractor {
    * @param kid keycloak public key id
    * @param token keycloak jwt token string
    */
-  async verifyKeycloakToken(kid: string, token: string) {
+  async verifyToken(token: string, kid: string) {
     // fetch the PEM Public Key
     const publicKey = await this.keyCloakCertsInstance.fetch(kid);
     if (publicKey) {
