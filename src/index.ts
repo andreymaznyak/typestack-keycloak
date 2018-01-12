@@ -1,3 +1,4 @@
-export * from './decorators';
-export * from './token-extractor';
+export * from './routing-controllers';
+export * from './models';
 export * from './utils';
+export * from './keycloak-token-extractor';

@@ -1,14 +1,17 @@
 {
   "name": "typestack-keycloak",
   "version": "1.0.0",
-  "description": "Repository contains routing controllers middlewares for keycloak integration",
+  "description":
+    "Repository contains routing controllers middlewares for keycloak integration",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap tests/*.spec.js",
+    "build": "npm run tsc",
     "cpx": "cpx",
     "tsc": "tsc",
     "preversion": "git pull origin master && npm run tsc",
-    "postversion": "git push origin master --tags && npm run cpx -- -C package.json dist && npm publish dist"
+    "postversion":
+      "git push origin master --tags && npm run cpx -- -C package.json dist && npm publish dist"
   },
   "repository": {
     "type": "git",
@@ -19,10 +22,14 @@
   "bugs": {
     "url": "https://github.com/andreymaznyak/typestack-keycloak/issues"
   },
-  "homepage": "https://github.com/andreymaznyak/typestack-keycloak/issues#README",
+  "homepage":
+    "https://github.com/andreymaznyak/typestack-keycloak/issues#README",
   "devDependencies": {
     "@types/node": "^9.3.0",
     "cpx": "^1.5.0",
+    "nock": "^9.1.6",
+    "routing-controllers": "^0.7.6",
+    "tap": "^11.0.1",
     "typescript": "^2.6.2"
   },
   "dependencies": {

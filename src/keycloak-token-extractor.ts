@@ -1,5 +1,7 @@
 import { Agent } from 'https';
 
+import { TokenExtractor } from './models';
+
 const KeyCloakCerts = require('get-keycloak-public-key-with-agent');
 const jwt = require('jsonwebtoken');
 
@@ -11,6 +13,7 @@ export interface KeycloakCetsOptions {
   baseUrl: string;
   realm: string;
   proxyAgent?: Agent;
+  expire?: number;
 }
 
 export interface ExtractorOptions {

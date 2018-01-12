@@ -1,12 +1,15 @@
-import { KeycloakTokenExtractor } from '../token-extractor';
+import { TokenExtractor, TokenInterface } from '../models';
 import { parseAuthHeader } from '../utils';
 
+/**
+ * Options for create authorize middleware
+ */
 export interface AuthorizeMiddlewareOptions {
-  tokenExtractor: KeycloakTokenExtractor;
+  tokenExtractor: TokenExtractor;
   checkRoleFn: CheckRoleFn;
 }
 
-export type CheckRoleFn = (token: any) => boolean;
+export type CheckRoleFn = (token: TokenInterface) => boolean;
 
 /**
  * Create check roles in token function
@@ -17,13 +20,10 @@ export function authorizeMiddlewareFactory(
 ) {
   return authorizeMiddleware;
 
-  async function authorizeMiddleware(
-    authHeader: string,
-    checkRoleFn: CheckRoleFn
-  ): Promise<boolean> {
+  async function authorizeMiddleware(authHeader: string): Promise<boolean> {
     let authorized = false;
     const token = parseAuthHeader(authHeader);
     const parsedToken = await options.tokenExtractor.extractToken(token);
-    return checkRoleFn(parsedToken);
+    return options.checkRoleFn(parsedToken);
   }
 }
