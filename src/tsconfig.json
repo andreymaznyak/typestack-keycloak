@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["es5", "es6"],
+    "lib": ["es5", "es6", "esnext"],
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",

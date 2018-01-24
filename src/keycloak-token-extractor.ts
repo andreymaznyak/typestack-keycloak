@@ -39,7 +39,7 @@ export class KeycloakTokenExtractor implements TokenExtractor {
    * @param options token certs lib options
    */
   setKeycloakCets(options: KeycloakCetsOptions) {
-    this.keyCloakCertsInstance = new KeyCloakCerts(options);
+    this.keyCloakCertsInstance = new KeyCloakCerts(...Object.values(options));
   }
   /**
    * Method decode token from string, and verify it with public keycloak key
@@ -61,14 +61,18 @@ export class KeycloakTokenExtractor implements TokenExtractor {
    */
   async verifyToken(token: string, kid: string) {
     // fetch the PEM Public Key
-    const publicKey = await this.keyCloakCertsInstance.fetch(kid);
-    if (publicKey) {
-      return jwt.verify(token, publicKey);
-    } else {
-      // KeyCloak has no Public Key for the specified KID
-      throw new Error(
-        `KeyCloak has no Public Key for the specified KID: ${kid} `
-      );
+    try {
+      const publicKey = await this.keyCloakCertsInstance.fetch(kid);
+      if (publicKey) {
+        return jwt.verify(token, publicKey);
+      } else {
+        // KeyCloak has no Public Key for the specified KID
+        throw new Error(
+          `KeyCloak has no Public Key for the specified KID: ${kid} `
+        );
+      }
+    } catch (e) {
+      throw e;
     }
   }
 }
