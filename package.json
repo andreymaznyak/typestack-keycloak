@@ -1,6 +1,6 @@
 {
   "name": "typestack-keycloak",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Repository contains routing controllers middlewares for keycloak integration",
   "main": "index.js",
   "scripts": {
