@@ -8,10 +8,8 @@ export function parseAuthHeader(
   prefixes = ['bearer ', 'Bearer ']
 ) {
   const foundPrefix = prefixes.find(prefix => header.startsWith(prefix));
-  console.log('foundPrefix', foundPrefix);
   if (!!foundPrefix) {
     const token = header.substr(foundPrefix.length);
-    console.log('token', token);
     return token;
   } else {
     throw new Error(
