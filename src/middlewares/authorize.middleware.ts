@@ -6,7 +6,7 @@ import { parseAuthHeader } from '../utils';
  */
 export interface AuthorizeMiddlewareOptions {
   tokenExtractor: TokenExtractor;
-  checkRoleFn: CheckRoleFn;
+  checkRoleFn?: CheckRoleFn;
 }
 
 export type CheckRoleFn = (token: TokenInterface) => boolean;
@@ -24,6 +24,9 @@ export function authorizeMiddlewareFactory(
     let authorized = false;
     const token = parseAuthHeader(authHeader);
     const parsedToken = await options.tokenExtractor.extractToken(token);
+    if (typeof options.checkRoleFn !== 'function') {
+      return true;
+    }
     return options.checkRoleFn(parsedToken);
   }
 }
